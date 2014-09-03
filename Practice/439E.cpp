@@ -3,7 +3,7 @@ using namespace std;
 
 #define MOD 1000000007
 #define MAX 100001
-typedef long long int lli
+typedef long long int lli;
 
 inline void inp(int &n ) {//fast input function
     n=0;
@@ -14,16 +14,17 @@ inline void inp(int &n ) {//fast input function
     n=n*sign;
 }
 
-vector <int> divisors[MAX];
+vector <lli > divisors[MAX];
 lli fact[MAX], invFact[MAX];
+lli dp[MAX];
 
 lli modexp(lli base, lli exponent) {
   lli ans = 1;
 
-  while (exponent != 0) {
-    if (exponent % 2 != 0) ans = (ans*base)%MOD;
+  while (exponent) {
+    if (exponent & 1) ans = (ans*base)%MOD;
     base = (base * base) % MOD;
-    exponent /= 2;
+    exponent >>= 1;
   }
   return ans;
 }
@@ -35,8 +36,21 @@ lli ncr (int n, int r) {
   return ans;
 }
 
-lli dp(int n,int f) {
-  
+lli find(int n,int f) {
+  if (f > n) return 0;
+
+  if (dp[n] != -1) return dp[n];
+
+  lli ans = ncr(n-1,f-1); 
+
+  for (int i = 0; i < divisors[n].size() - 1; i++) {
+    if (divisors[n][i] >= f) {
+      ans -= find(divisors[n][i],f);
+      if (ans < 0) ans += MOD;
+    }
+  }
+  dp[n] = ans;
+  return ans;
 }
 
 
@@ -60,7 +74,8 @@ int main () {
   while (t--) {
     int n, f;
     inp(n); inp(f);
-    lli ans = dp(n,f);
+    memset(dp,-1,sizeof(dp));
+    lli ans = find(n,f);
     printf("%lli\n",ans);
   }
 }
