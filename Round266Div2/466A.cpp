@@ -15,9 +15,16 @@ typedef long long int lli;
 int main () {
   lli n, m, a, b;
   scanf("%lli %lli %lli %lli",&n,&m,&a,&b);
-  lli ans = 0;
+  
+  // lli one = n*a;
+  // lli two = (n/m+1)*b;
+  // lli three = (n/m)*b + (n%m)*a;
+  // lli ans = min(min(one,two),three);
+  // printf("%lli\n",ans);
+  // return 0;
 
-  if ((m/b) >= a) ans = n*a;
+  lli ans = 0;
+  if ((b/m) >= a) ans = n*a;
   else {
     ans = (n/m)*b;
     if (b < (n%m)*a) ans += b;
