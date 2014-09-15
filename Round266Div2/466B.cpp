@@ -12,25 +12,22 @@ inline void inp(int &n ) {//fast input function
 }
 typedef unsigned long long lli;
 
-int main () {
-  lli n, a, b;
-  scanf("%llu %llu %llu",&n,&a,&b);
-
-  lli val = ((lli)6)*n;
-  lli val2 = a*b;
-  lli ma = max(a,b);
-  lli mi = min(a,b);
-  if (val2 < val) {
-    while (val2 < val) {
-      ma++;    
-      val2 = mi*ma;  
-    }
-    // printf("%lli\n",val2);
-    // printf("%lli %lli\n",mi,ma); 
+int main()
+{
+  long long n,a,b;
+  fi>>n>>a>>b;
+  n*=6;
+  bool ok=bool(a>b);
+  if (ok) swap(a,b);
+  long long besta=a,bestb=b;
+  for (long long i=a;i*i<=n;++i)
+  {
+    long long y=(n+i-1)/i;
+    if (y<b) y=b;
+    if (i*y<besta*bestb || besta*bestb<n) besta=i,bestb=y;
   }
-  // else {
-    printf("%llu\n",val2);
-    printf("%llu %llu\n",mi,ma);
-  // }
-
+  a=besta;b=bestb;
+  if (ok) swap(a,b);
+  fo<<b*a<<'\n'<<a<<' '<<b<<'\n';
+  return 0;  
 }
