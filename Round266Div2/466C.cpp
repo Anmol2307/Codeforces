@@ -18,50 +18,38 @@ int main () {
   inp(n);
 
   lli arr[n];
-  lli sum[n];
+  lli cnt[n];
+  memset(cnt,0,sizeof(cnt));
 
+  lli s = 0;
   for (int i = 0; i < n; i++) {
     scanf("%lli",&arr[i]);
-  }
-  sum[0] = arr[0];
-
-  for (int i = 1; i < n; i++) {
-    sum[i] = sum[i-1] + arr[i];
-  }
-  
-  // for (int i = 0; i < n; i++) {
-  //   printf("%lli ",sum[i]);
-  // }
-  // printf("\n");
-
-  int x = 1, y = n-2;
-  int ans = 0;
-  while (x <= y) {
-    lli p1 = sum[x-1];
-    lli p2 = sum[y] - p1;
-    lli p3 = sum[n-1] - p2 - p1;
-    // printf("%lli %lli %lli\n",p1,p2,p3);
-    if (p1 == p2 && p2 == p3) {
-      ans++;
-      if (arr[x] < arr[y]) x++;
-      else y--;
-    }
-    if (p1 < p2 && arr[x+1] > 0 && x < y) {
-      x++;
-    }
-    else if (p1 > p2 && arr[x+1] < 0 && x < y) {
-      x++;
-    }
-    else if (p3 < p2 && arr[y-1] > 0 && x < y) {
-      y--;
-    }
-    else if (p3 > p2 && arr[y-1] < 0 && x < y) {
-      y--;
-    }
-    else {
-      break;
-    }
+    s += arr[i];
   }
 
-  printf("%d\n",ans);
+  if (s % 3 != 0) {
+    printf("0\n");
+    return 0; 
+  }
+  s = s/3;
+  lli ss = 0;
+  for (int i = n-1; i >= 0; i--) {
+    ss += arr[i];
+    if (ss == s) cnt[i] = 1;
+  }
+
+  for (int i = n-2; i >= 0; i--) {
+    cnt[i] += cnt[i+1];
+  }
+
+  lli ans = 0;
+
+  ss = 0;
+
+  for (int i = 0; i < n-2; i++) {
+    ss += arr[i];
+    if (ss == s) ans += cnt[i+2];
+  }
+
+  printf("%lli\n",ans);
 }

@@ -12,22 +12,50 @@ inline void inp(int &n ) {//fast input function
 }
 typedef unsigned long long lli;
 
-int main()
-{
-  long long n,a,b;
-  fi>>n>>a>>b;
-  n*=6;
-  bool ok=bool(a>b);
-  if (ok) swap(a,b);
-  long long besta=a,bestb=b;
-  for (long long i=a;i*i<=n;++i)
-  {
-    long long y=(n+i-1)/i;
-    if (y<b) y=b;
-    if (i*y<besta*bestb || besta*bestb<n) besta=i,bestb=y;
+int main () {
+  lli n, a, b;
+  scanf("%lli %lli %lli", &n, &a, &b);
+
+  n *= 6;
+  lli cur = a*b;
+
+  if (cur > n) {
+    printf("%lli\n%lli %lli\n",cur,a,b);
   }
-  a=besta;b=bestb;
-  if (ok) swap(a,b);
-  fo<<b*a<<'\n'<<a<<' '<<b<<'\n';
-  return 0;  
+  else {
+    lli sm = min(a,b);
+    lli bg = max(a,b);
+    lli ma = INT_MAX;
+    lli mb = INT_MAX;
+    lli mcur = ma*mb;
+    
+    for (lli i = sm; i*i <= n; i++) {
+      lli na = i; 
+      lli nb;
+      if (n%i != 0) nb = n/i + 1;
+      else nb = n/i;
+      cur = na*nb;
+      if (na < nb && nb >= bg) {
+        if (cur < mcur) {
+          mcur = cur;
+          ma = na;
+          mb = nb;
+        }
+      }
+      else if (na >= nb && na >= bg && nb >= sm){
+        if (cur < mcur) {
+          mcur = cur;
+          ma = na;
+          mb = nb;
+        }
+      }
+    }
+
+      if (ma >= a && mb >= b) {
+        printf("%lli\n%lli %lli\n",mcur,ma,mb);
+      }
+      else if (ma >= b && mb >= a) {
+        printf("%lli\n%lli %lli\n",mcur,mb,ma);
+      }
+  }
 }
