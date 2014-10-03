@@ -15,11 +15,11 @@ inline void inp(int &n ) {//fast input function
 int main () {
   int n;
   inp(n);
+  
   int graph[n][n];
   for (int i = 0; i < n; i++) {
     for (int j = 0; j < n; j++) {
       inp(graph[i][j]);
     }
   }
-  
 }
