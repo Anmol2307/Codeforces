@@ -2,48 +2,66 @@
 
 using namespace std;
 
-inline void inp(int &n ) {//fast input function
-    n=0;
-    int ch=getchar(),sign=1;
-    while( ch < '0' || ch > '9' ){if(ch=='-')sign=-1; ch=getchar();}
-    while( ch >= '0' && ch <= '9' )
-        n=(n<<3)+(n<<1)+ ch-'0', ch=getchar();
-    n=n*sign;
-}
+#define LL long long int
+#define sd(x) scanf("%d", &x)
+#define MP make_pair
+#define PB push_back
+#define vi vector<int>
+#define F first
+#define S second
+#define INF 2000000000
+#define MOD 1000000007
+#define D double
+#define LD long double
 
-vector <int> alph[26];
-int n;
+string s;
 
-bool check (char c[]) {
-	char x = c[n-1];
-	int z = x-'a';
-	for (int i = 0; i < aplh[z].size(); i++) {
-		int val = alph[z][i];
-		for (int k = val; k < )
-	}
-}
+int main(){
+    int n, p, i, j, k;
+    cin>>n>>p;
+    cin>>s;
+    s = "  " + s;
+    for(i = n + 1; i >= 2; i--){
+        for(j = s[i] - 'a' + 1; j < p; j++){
+            if(j != s[i - 1] - 'a' && j != s[i - 2] - 'a'){
+                break;
+            }
+        }
+        //cout<<i<<" "<<j<<endl;
+        
+        if(j >= p){
+            continue;
+        }
+        
+        printf("%d %d\n",i,j);
+        exit(0);
 
-
-int main () {
-	int p;
-	inp(n); inp(p);
-
-	char ch[n];
-	scanf("%s",ch);
-	
-	for (int i = 0; i < n; i++) {
-		aplh[ch[i] - 'a'].push_back(i);
-	}
-
-	char test[n];
-	for (int i = n-1; i >= 0; i--) {
-		test = ch;
-		for (int j = ch[i] - 'a'+1; j < p; j++) {
-			test[i] = (char)(j+97);
-			if (check(test)) printf("%s\n",test);
-		}
-	}
-
-	
-
+        s[i] = j + 'a';
+        for(k = i + 1; k <= n + 1; k++){
+            for(j = 0; j < p; j++){
+                if(j != s[k - 1] - 'a' && j != s[k - 2] - 'a'){
+                    break;
+                }
+            }
+            if(j == p){
+                break;
+            }
+            s[k] = j + 'a';
+        }
+        //cout<<k<<endl;
+        if(k <= n + 1){
+            i = 0;
+        }
+        break;
+    }
+    if(i >= 2){
+        for(i = 2; i <= n + 1; i++){
+            cout<<s[i];
+        }
+        cout<<endl;
+    }
+    else{
+        cout<<"NO"<<endl;
+    }
+    return 0;
 }
