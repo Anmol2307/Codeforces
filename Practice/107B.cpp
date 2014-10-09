@@ -13,23 +13,27 @@ inline void inp(int &n ) {//fast input function
 
 
 int main () {
-  int x;
-  inp(x);
+  int n, m, h;
+  inp(n); inp(m); inp(h);
 
-  if (x == 1) {
-    printf("1\n");
-    return 0;
-  }
-  else if (x == 2 || x == 4 || x == 5) {
-    printf("3\n");
-    return 0;
-  }
-  else if (x == 3) {
-    printf("5\n");
-    return 0;
+  vector <int> s;
+  int sum = 0;
+
+  for (int i = 0; i < m; i++) {
+    int x; inp(x);
+    s.push_back(x);
+    sum += x;
   }
 
-  int ans = 3;
-  while ((ans*ans + 1)/2 < x) ans +=2;
-  printf("%d\n",ans);
+  if (sum < n) {
+    printf("-1\n");
+    return 0;
+  }
+  
+  h--;n--;s[h]--;sum--;
+  double res=1;
+  for(int i=0;i<s[h];i++)
+    res*=double(sum-n-i)/(sum-i);
+  printf("%f",1-res);
+  return 0;
 }
