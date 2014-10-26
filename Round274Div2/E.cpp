@@ -34,5 +34,30 @@ typedef ostringstream oss;
 #define pl(n) printf("%lld",n)
 #define ps printf(" ")
 #define pn printf("\n")
-#define N 90
+#define N 5005
 #define MOD 1000000007
+
+int dp[2][N];
+
+int main () {
+  int n, a, b, k;
+  inp(n); inp(a); inp(b); inp(k);
+
+  dp[0][a] = 1;
+
+  for (int i = 1; i <= k; i++) {
+    for (int j = 1; j <= n; j++) {
+      if (dp[(i-1)%2][j] != 0) {
+        if (j == b) dp[i%2][j] = 0;
+        else if (j < b) {
+          int l = 2*j - b;
+          int r = b-1;
+        }
+        else {
+
+        }
+      }
+    }
+  }
+
+}

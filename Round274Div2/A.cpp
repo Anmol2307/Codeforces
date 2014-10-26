@@ -36,3 +36,17 @@ typedef ostringstream oss;
 #define pn printf("\n")
 #define N 90
 #define MOD 1000000007
+
+int main () {
+  int a, b, c;
+  inp(a); inp(b); inp(c);
+
+  int ma = a+b*c;
+
+  ma = max(ma,(a+b)*c);
+  ma = max(ma,a*(b+c));
+  ma = max(ma,a*b+c);
+  ma = max(ma,a*b*c);
+  ma = max(ma,a+b+c);
+  printf("%d\n",ma);
+}

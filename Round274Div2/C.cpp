@@ -36,3 +36,36 @@ typedef ostringstream oss;
 #define pn printf("\n")
 #define N 90
 #define MOD 1000000007
+
+
+
+bool pairCompare(const pii& firstElem, const pii& secondElem) {
+  if (firstElem.ff < secondElem.ff) return true;
+  else if (firstElem.ff == secondElem.ff && firstElem.ss <= secondElem.ss) return true;
+  else return false;
+}
+
+int main () {
+  int n;
+  inp(n);
+
+  vector <pii> vec;
+
+  for (int i = 0; i < n; i++) {
+    int x, y;
+    inp(x); inp(y);
+    vec.push_back(pii(x,y));
+  }
+
+  sort(vec.begin(), vec.end());
+  
+  int best = -1;
+
+  for (int i = 0; i < n; i++) {
+    if (vec[i].ss >= best) {
+      best = vec[i].ss;
+    }
+    else best = vec[i].ff;
+  }
+  printf("%d\n",best);
+}

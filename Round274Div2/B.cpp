@@ -36,3 +36,58 @@ typedef ostringstream oss;
 #define pn printf("\n")
 #define N 90
 #define MOD 1000000007
+
+
+int main () {
+  int n, k;
+  inp(n); inp(k);
+  int arr[n];
+
+  for (int i = 0; i < n; i++) {
+    inp(arr[i]);
+  }
+
+  vector <pii> vec;
+  int i = 0;
+  // int gd = INT_MAX;
+  for (i = 0; i < k; i++) {
+    int mi, ma;
+    int miv = INT_MAX, mav = INT_MIN;
+    // int nd;
+    for (int j = 0; j < n; j++) {
+      if (arr[j] < miv) {
+        mi = j;
+        miv = arr[j];
+      }
+      if (arr[j] > mav) {
+        mav = arr[j];
+        ma = j;
+      }
+    }
+    // nd = mav - miv;
+    if (mi != ma) {
+      arr[ma]--;
+      arr[mi]++;
+      vec.push_back(pii(ma,mi));
+      // gd = nd;
+    }
+    else {
+      break;
+    }
+  }
+
+  int miv = INT_MAX, mav = INT_MIN;
+  for (int j = 0; j < n; j++) {
+    if (arr[j] < miv) {
+      miv = arr[j];
+    }
+    if (arr[j] > mav) {
+      mav = arr[j];
+    }
+  }
+  printf("%d ",mav-miv);
+  printf("%d\n",i);
+  for (int j  = 0; j < vec.size(); j++) {
+    printf("%d %d\n",vec[j].ff+1,vec[j].ss+1);
+  }
+}
