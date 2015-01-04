@@ -10,38 +10,29 @@ inline void inp(int &n ) {//fast input function
         n=(n<<3)+(n<<1)+ ch-'0', ch=getchar();
     n=n*sign;
 }
-
-
-int main () {
-  int n, m;
-  inp(n); inp(m);
-
-  vector <string> vec;
-
-  for (int i = 0; i < n; i++) {
-    string str;
-    getline(cin,str);
-    vec.push_back(str);
+int n,m,i,j,ans,tmp,flag[1000];
+char s[1000][1000];
+int main()
+{
+  scanf("%d%d",&n,&m);
+  for (i=1;i<=n;i++) {
+    scanf("%s",&s[i]);
   }
-  int ans = 0;
-  int sorted = 0;
-  memset(arr,0,sizeof arr);
-  for (int i = 0; i < n-1; i++) {
-    if (vec[i][0] > vec[i+1][0]) {
-      ans++;
-      sorted = -1;
-      break;
+  for (j=0;j<m;j++){
+    tmp=0;
+    for (i=1;i<=n-1;i++) {
+      if ((s[i][j]>s[i+1][j])&&(flag[i]==0)) {
+        tmp=1;
+      }
     }
-    else if (vec[i][0] == vec[i+1][0]) {
-      sorted = -2;
-    }
-  }
-
-  for (int i = 1; i < m; i++) {
-    if (sorted < 0) {
-      for (int j = 0; j < n; j++) {
-
+    ans=ans+tmp;
+    if (tmp==0){
+      for (i=1;i<=n-1;i++) {
+        if ((s[i][j]<s[i+1][j])&&(flag[i]==0)){
+          flag[i]=1;
+        }
       }
     }
   }
+  printf("%d\n",ans);
 }
