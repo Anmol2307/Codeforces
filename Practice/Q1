@@ -1,0 +1,44 @@
+a. To prove that gcd(t, u) = gcd(u, t%u), assuming t > u:
+
+We know that we can write t = (q *u) + r , where 0 <= r < |u| (from the Division Theorem).
+Here, t % u = r.
+
+We need to show that gcd (t, u) = gcd (u, r).
+
+Let G = gcd(t, u),  and H = gcd(u, r). To prove G = H.
+
+We know, G divides t, and G divides u
+Thus, G divides t - (q * u)
+Thus, G divides r.
+
+But, because H is the greatest common divisor of u and r, thus G <= H
+
+Again, we know that H divides u, and H divides r.
+Thus H divides (q * u) + r.
+Thus H divides t.
+
+But because G is the greatest common divisor of t and u, thus H <=G.
+
+From the above two proofs, we know that H = G. 
+Hence proved.
+
+b.
+
+Euclidean algorithm repeatedly evaluates gcd(a,b)=gcd(b,a mod b) until b=0
+assuming a >= b.
+Let us use the lemma that :
+	For positive integers p and q with p > q
+	-> p mod q < p/2
+You can prove this easily.
+
+So gcd(a,b) -> gcd(b,x) -> gcd(x, y)
+where x = a mod b and y = b mod x
+
+
+After the above 2 iterations, the second argument reduces by a factor of 1/2
+as y < b/2 using the lemma above.
+So the number of iterations before the second argument becomes 0 is O(log b).
+
+If we take the mod operator takes O(1) time then number of arithmetic operations
+per iteration is O(1).
+Hence the total number of arithmetic operations is O(log b)
