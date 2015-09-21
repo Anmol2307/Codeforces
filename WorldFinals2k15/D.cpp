@@ -4,20 +4,24 @@ using namespace std;
 #define N 10000
 double volp;
 double n,s;
-double r[N], x[N], y[N], z[N], vols[N], sumv;
+vector<pair<double,double> > pa;
+double x, y, vols[N], sumv;
 
 double find (double val) {
 	double ret = 10000*val;
 	for (int i = 0; i < n; i++) {
-		double le = z[i] - r[i];
-		double re = z[i] + r[i];
+		if (val < (pa[i].second-pa[i].first)) break;
+		double le = pa[i].second - pa[i].first;
+		double re = pa[i].second + pa[i].first;
 		if (val >= re) {
 			ret -= vols[i];
 		}
 		else if (val >= le) {
-			double v = (val-z[i]+r[i]);
-			double t = r[i]*r[i]*v;
-			t -= (r[i]*r[i]*r[i] - (z[i]-val)*(z[i]-val)*(z[i]-val))/3; 
+			double rad = pa[i].first;
+			double zz = pa[i].second - val;
+			double v = (rad-zz);
+			double t = rad*rad*v;
+			t -= (rad*rad*rad - zz*zz*zz)/3; 
 			t *= M_PI;
 			// printf("%lf %lf\n",ret,t);
 			ret -= t;
@@ -52,18 +56,24 @@ double binary_search(double low) {
 	}
 }
 
+bool pairCompare(const pair<double, double>& firstElem, const pair<double, double>& secondElem) {
+  return (secondElem.second - secondElem.first) > (firstElem.second - firstElem.first);
+}
+
 
 int main () {
 	scanf("%lf %lf", &n, &s);
 	for (int i = 0; i < n; i++) {
-		scanf("%lf %lf %lf %lf",&r[i],&x[i],&y[i],&z[i]);
-		r[i] /= 1000;
-		x[i] /= 1000;
-		y[i] /= 1000;
-		z[i] /= 1000;
-		vols[i] = (4*M_PI*r[i]*r[i]*r[i])/3;
+		pair<double,double> p;
+		scanf("%lf %lf %lf %lf",&p.first,&x,&y,&p.second);
+		p.first /= 1000;
+		p.second /= 1000;
+		double rad = p.first;
+		vols[i] = (4*M_PI*rad*rad*rad)/3;
 		sumv += vols[i];
+		pa.push_back(p);
 	}
+	sort(pa.begin(),pa.end(),pairCompare);
 	volp = (1000000 - sumv)/s;
 	// printf("%lf %lf\n",volp,M_PI);
 	// printf("%lf\n",findvol(0,14.611103142));
